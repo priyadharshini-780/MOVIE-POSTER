@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Collection</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #toggleBtn {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        /* GRID VIEW */
+        
+        .grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .movie {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .movie:hover {
+            transform: scale(1.05);
+        }
+        
+        .movie img {
+            width: 100%;
+        }
+        
+        .details {
+            padding: 10px;
+        }
+        /* LIST VIEW */
+        
+        .list-view {
+            display: block;
+        }
+        
+        .list-view .movie {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .list-view img {
+            width: 150px;
+        }
+        
+        .genre {
+            display: inline-block;
+            background: #ddd;
+            padding: 3px 8px;
+            margin-top: 5px;
+        }
+        /* ACCORDION */
+        
+        .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion {
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h2>🎬 Movie Collection</h2>
+            <button id="toggleBtn">Switch to List View</button>
+        </div>
+
+        <div id="movies" class="grid-view">
+
+            <div class="movie">
+                <img src="https://via.placeholder.com/200x300">
+                <div class="details">
+                    <h3>Inception</h3>
+                    <p>⭐ 8.8</p>
+                    <p>A mind-bending thriller</p>
+                    <span class="genre">Sci-Fi</span>
+
+                    <button class="accordion">View More</button>
+                    <div class="panel">
+                        <p>A thief enters dreams to steal secrets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="movie">
+                <img src="https://via.placeholder.com/200x300">
+                <div class="details">
+                    <h3>Interstellar</h3>
+                    <p>⭐ 8.6</p>
+                    <p>Space exploration story</p>
+                    <span class="genre">Adventure</span>
+
+                    <button class="accordion">View More</button>
+                    <div class="panel">
+                        <p>A team travels through a wormhole.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById("toggleBtn");
+        const movieContainer = document.getElementById("movies");
+
+        toggleBtn.addEventListener("click", () => {
+            if (movieContainer.classList.contains("grid-view")) {
+                movieContainer.classList.remove("grid-view");
+                movieContainer.classList.add("list-view");
+                toggleBtn.textContent = "Switch to Grid View";
+            } else {
+                movieContainer.classList.remove("list-view");
+                movieContainer.classList.add("grid-view");
+                toggleBtn.textContent = "Switch to List View";
+            }
+        });
+
+        // ACCORDION
+        const accordions = document.querySelectorAll(".accordion");
+
+        accordions.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const panel = btn.nextElementSibling;
+
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
